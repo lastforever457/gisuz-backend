@@ -16,7 +16,7 @@ async function bootstrap() {
       'http://192.168.100.10:3000',
       'http://192.168.100.113:3000',
       'http://192.168.1.151:3000',
-      'https://gisauksion.aigov.uz',
+      'https://gisuz-psi.vercel.app',
     ],
     credentials: true,
   });
