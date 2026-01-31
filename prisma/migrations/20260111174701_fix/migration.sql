@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Layer" ALTER COLUMN "data" DROP NOT NULL;

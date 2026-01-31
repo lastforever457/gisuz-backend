@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Info" ALTER COLUMN "idx" DROP NOT NULL;
