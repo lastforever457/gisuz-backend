@@ -1,54 +1,54 @@
-name: Deploy with PAT
+# name: Deploy with PAT
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Configure Git with PAT
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/lastforever457/cesium-direksiya-backend.git
+#       - name: Configure Git with PAT
+#         run: |
+#           git config --global user.name "github-actions"
+#           git config --global user.email "actions@github.com"
+#           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/lastforever457/cesium-direksiya-backend.git
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
+#       - name: Install sshpass
+#         run: sudo apt-get install -y sshpass
 
-      - name: Notify deploy started
-        run: |
-          curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
-            -H "Content-Type: application/json" \
-            -d '{"event":"deploy_started","repo":"${{ github.repository }}"}'
+#       - name: Notify deploy started
+#         run: |
+#           curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
+#             -H "Content-Type: application/json" \
+#             -d '{"event":"deploy_started","repo":"${{ github.repository }}"}'
 
-      - name: Deploy via SSH with password
-        run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@144.91.102.35 "bash -lc '
-            cd cesium-direksiya-backend &&
-            git pull &&
-            pnpm i &&
-            pnpm prisma migrate deploy &&
-            pnpm prisma generate &&
-            pnpm build &&
-            pm2 restart cesium-direksiya-backend
-          '"
+#       - name: Deploy via SSH with password
+#         run: |
+#           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@144.91.102.35 "bash -lc '
+#             cd cesium-direksiya-backend &&
+#             git pull &&
+#             pnpm i &&
+#             pnpm prisma migrate deploy &&
+#             pnpm prisma generate &&
+#             pnpm build &&
+#             pm2 restart cesium-direksiya-backend
+#           '"
 
-      - name: Notify deploy finished
-        if: success()
-        run: |
-          curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
-            -H "Content-Type: application/json" \
-            -d '{"event":"deploy_finished","repo":"${{ github.repository }}"}'
+#       - name: Notify deploy finished
+#         if: success()
+#         run: |
+#           curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
+#             -H "Content-Type: application/json" \
+#             -d '{"event":"deploy_finished","repo":"${{ github.repository }}"}'
 
-      - name: Notify deploy error
-        if: failure()
-        run: |
-          curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
-            -H "Content-Type: application/json" \
-            -d '{"event":"deploy_error","repo":"${{ github.repository }}"}'
+#       - name: Notify deploy error
+#         if: failure()
+#         run: |
+#           curl -X POST https://forever-notifier-bot.vercel.app/api/webhook \
+#             -H "Content-Type: application/json" \
+#             -d '{"event":"deploy_error","repo":"${{ github.repository }}"}'
