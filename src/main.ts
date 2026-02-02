@@ -11,13 +11,13 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'http://localhost:3001',
-      'https://sotuv.aigov.uz',
       'http://192.168.100.86:3000',
       'http://192.168.100.10:3000',
       'http://192.168.100.113:3000',
       'http://192.168.1.151:3000',
       'https://gisuz-psi.vercel.app',
       'https://gisuz.aigov.uz',
+      'https://yangitoshkentgis.aigov.uz',
     ],
     credentials: true,
   });
