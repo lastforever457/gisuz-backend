@@ -17,6 +17,7 @@ async function bootstrap() {
       'http://192.168.100.113:3000',
       'http://192.168.1.151:3000',
       'https://gisuz-psi.vercel.app',
+      'https://gisuz.aigov.uz',
     ],
     credentials: true,
   });
