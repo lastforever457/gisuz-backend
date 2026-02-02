@@ -20,8 +20,6 @@ import { LayersService } from './layers.service';
 
 @ApiTags('Admin - Layers')
 @Controller('admin/layers')
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('ADMIN', 'USER')
 export class LayersController {
   constructor(private readonly layersService: LayersService) {}
 
@@ -39,6 +37,8 @@ export class LayersController {
     return this.layersService.getLayerById(id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
   @Post()
   @HttpCode(201)
   @ApiOperation({ summary: 'Create layer' })
@@ -46,6 +46,8 @@ export class LayersController {
     return this.layersService.createLayer(data);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
   @Patch(':id')
   @HttpCode(200)
   @ApiOperation({ summary: 'Update layer by id' })
@@ -53,6 +55,8 @@ export class LayersController {
     return this.layersService.updateLayer(id, data);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
   @Delete(':id')
   @HttpCode(200)
   @ApiOperation({ summary: 'Delete layer by id' })
