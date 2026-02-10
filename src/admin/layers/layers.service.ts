@@ -50,4 +50,11 @@ export class LayersService {
   async deleteLayer(id: string) {
     return this.prisma.layer.delete({ where: { id } });
   }
+
+  async updateChartData(id: string, chartData: any) {
+    return this.prisma.layer.update({
+      where: { id },
+      data: { chartData },
+    });
+  }
 }

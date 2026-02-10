@@ -30,6 +30,8 @@ model Layer {
   global_id String
   area      String
 
+  chartData Json?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
